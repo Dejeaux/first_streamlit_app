@@ -42,7 +42,7 @@ try:
     back_from_function = get_fruity_vice_data(fruit_choice)
     streamlit.dataframe(back_from_function)
     
-streamlit.header("The Fruit Load list Contains:") 
+streamlit.header("Fruityvice Fruit shit!")
 
 except URLError as e:
   streamlit.error

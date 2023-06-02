@@ -97,10 +97,10 @@ try :
         streamlit.dataframe( back_from_function )
 
 
-def insert_row_snowflake(new_fruit) -> object:
+def insert_row_snowflake(new_fruit):
     with my_cnx.cursor() as my_cur:
         my_cur.execute("insert into fruit_load_list values ('from streamlit')");
-        assert isinstance( new_fruit,object )
+        assert isinstance( new_fruit)
         return "Thanks for adding " + new_fruit
 
 

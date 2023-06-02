@@ -52,11 +52,8 @@ my_data_rows = my_cur.fetchall()
 fruit_to_add = streamlit.text_input('What fruit would you like to add?')
 streamlit.write('Thanks for adding ', fruit_to_add)
 
-#fruityvice_add = requests.get(my_data_rows + fruit_to_add)
-#streamlit.header("The Fruit Load list Contains:")
-#add_my_fruit = streamlit.multiselect("What Fruit would you like to add?:", list(my_data_rows.index))
-#fruits_to_add = my_fruit_add.loc[add_my_fruit]
-##streamlit.dataframe(fruits_to_add)
-#streamlit.dataframe(my_data_rows)
+my_cur.execute(insert into pc_rivery_db.public.fruit_load_list values ('from streamlit'));
+
+
 
 

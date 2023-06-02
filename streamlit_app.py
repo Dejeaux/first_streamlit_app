@@ -5,6 +5,7 @@ import snowflake.connector
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
+my_fruit_add = my_fruit_add.set_index('Fruit')
 
 
 # Display the table on the page.
@@ -43,9 +44,10 @@ my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
+
 streamlit.header("The Fruit Load list Contains:")
 add_my_fruit = streamlit.multiselect("Pick some fruits:", list(my_data_rows.index))
-fruits_to_add = my_fruit_list.loc[add_my_fruit]
+fruits_to_add = my_fruit_add.loc[add_my_fruit]
 streamlit.dataframe(fruits_to_add)
 #streamlit.dataframe(my_data_rows)
 

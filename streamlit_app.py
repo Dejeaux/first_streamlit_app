@@ -1,12 +1,11 @@
 import streamlit 
-import pandas
-import requests
+#import pandas
+#import requests
 import snowflake.connector
+from urllib.error import URLError
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
-#my_fruit_add = my_fruit_add.set_index('Fruit_Name')
-
 
 # Display the table on the page.
 
@@ -36,12 +35,15 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_c
 #streamlit.text(fruityvice_response.json())
 
 
-
-
 # standardize output
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # output normalize data
 streamlit.dataframe(fruityvice_normalized)
+
+#add a stop here
+streamlit.stop()
+
+
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()

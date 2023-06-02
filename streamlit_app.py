@@ -43,7 +43,7 @@ try:
     streamlit.dataframe(back_from_function)
 
     
-streamlit.header("The Fruit Load list Contains:") 
+#streamlit.header("The Fruit Load list Contains:") 
 #streamlit add
 def get_fruit_load_list():
     with my.cnx_cursor() as my_cur: 

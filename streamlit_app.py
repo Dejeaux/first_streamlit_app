@@ -42,12 +42,14 @@ try:
     back_from_function = get_fruity_vice_data(fruit_choice)
     streamlit.dataframe(back_from_function)
     
+streamlit.header("The Fruit Load list Contains:") 
+
 except URLError as e:
   streamlit.error
 #add a stop here
 streamlit.stop()
     
-streamlit.header("The Fruit Load list Contains:") 
+
 #streamlit add
 def get_fruit_load_list():
     with my.cnx_cursor() as my_cur: 

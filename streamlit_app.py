@@ -32,6 +32,7 @@ def get_fruity_vice_data(this_fruit_choice):
     fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
     return fruityvice_normalized  
 
+#moved this area up so it would run. List is now inside a button
 streamlit.header("The Fruit Load List Contains:")
 #streamlit add
 def get_fruit_load_list():
@@ -46,7 +47,6 @@ if streamlit.button('Get Fruit Load List'):
     streamlit.dataframe(my_data_rows)
 
 
-
 #new header for api response
 streamlit.header("Fruityvice Fruit Advice!")
 try:
@@ -57,6 +57,19 @@ try:
     back_from_function = get_fruity_vice_data(fruit_choice)
     streamlit.dataframe(back_from_function)
     
+#add another header for adding fruit
+def insert_row_snowflake(new_fruit):
+    with my_cnx.cursor() as my_cur:
+        my_cur.execute("insert into fruit_load_list values ('from streamlit')");
+        return "Thanks for adding " + new_fruit
+   
+add_my_fruit = streamlit.text_input('What fruit would you like to add?')
+if streamlit.button('Add a Fruit to the List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    back_from_function = insert_row_snowflake(add_my_fruit)
+    streamlit.text(back_from_button)
+
+
 
     
     
@@ -75,11 +88,6 @@ streamlit.stop()
 
 
 
-#add another header for adding fruit
-fruit_to_add = streamlit.text_input('What fruit would you like to add?')
-streamlit.write('Thanks for adding ', fruit_to_add)
-
-my_cur.execute("insert into fruit_load_list values ('from streamlit')");
 
 
 

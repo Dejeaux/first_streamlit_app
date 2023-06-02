@@ -5,7 +5,7 @@ import snowflake.connector
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
-my_fruit_add = my_fruit_add.set_index('Fruit_Name')
+#my_fruit_add = my_fruit_add.set_index('Fruit_Name')
 
 
 # Display the table on the page.
@@ -35,6 +35,9 @@ streamlit.write('The user entered ', fruit_choice)
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 #streamlit.text(fruityvice_response.json())
 
+
+
+
 # standardize output
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # output normalize data
@@ -45,10 +48,17 @@ my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
 
-streamlit.header("The Fruit Load list Contains:")
-add_my_fruit = streamlit.multiselect("Pick some fruits:", list(my_data_rows.index))
-fruits_to_add = my_fruit_add.loc[add_my_fruit]
-streamlit.dataframe(fruits_to_add)
+#add another header for adding fruit
+fruit_to_add = streamlit.text_input('What fruit would you like to add?')
+streamlit.write('The user entered ', fruit_to_add)
+
+fruityvice_add = requests.get(my_data_rows + fruit_to_add)
+
+
+#streamlit.header("The Fruit Load list Contains:")
+#add_my_fruit = streamlit.multiselect("What Fruit would you like to add?:", list(my_data_rows.index))
+#fruits_to_add = my_fruit_add.loc[add_my_fruit]
+##streamlit.dataframe(fruits_to_add)
 #streamlit.dataframe(my_data_rows)
 
 

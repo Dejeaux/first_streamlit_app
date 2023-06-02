@@ -55,8 +55,7 @@ try:
     streamlit.error("Please select a fruit to get information")
   else:  
     back_from_function = get_fruity_vice_data(fruit_choice)
-    streamlit.dataframe(back_from_function)
-    
+    streamlit.dataframe(back_from_function)    
 #add another header for adding fruit
 def insert_row_snowflake(new_fruit):
     with my_cnx.cursor() as my_cur:

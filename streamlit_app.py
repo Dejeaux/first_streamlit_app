@@ -35,10 +35,10 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_c
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 #output to screen
 streamlit.dataframe(fruityvice_normalized)   
+ streamlit.stop()      
 
 except URLerror as e:
     streamlit.error()
- streamlit.stop()      
 
 #create fruityvice function
 def get_fruity_vice_data(this_fruit_choice):

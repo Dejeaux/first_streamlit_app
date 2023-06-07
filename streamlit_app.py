@@ -24,8 +24,19 @@ fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(fruits_to_show)
 
-#streamlit.dataframe(my_fruit_list)
+#streamlit.dataframe(fruits_to_show)
 
+#new header for api response
+streamlit.header("Fruityvice Fruit Advice!")
+fruit_choice = streamlit.text_input('What fruit would you like information about?')
+streamlit.write(The user entered',fruit_choice);
+
+except URLError as e:
+  streamlit.error
+#add a stop here
+streamlit.stop()
+                
+                
 #create fruityvice function
 def get_fruity_vice_data(this_fruit_choice):
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
@@ -37,21 +48,17 @@ if streamlit.button('Get Fruit Load List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     my_data_rows = get_fruit_load_list()
     streamlit.dataframe(my_data_rows)
-except URLError as e:
-  streamlit.error
-#add a stop here
-streamlit.stop()
+
 
     
-#new header for api response
-streamlit.header("Fruityvice Fruit Advice!")
-try:
-  fruit_choice = streamlit.text_input('What fruit would you like information about?')
-  if not fruit_choice:
+
+#try:
+  
+#  if not fruit_choice:
     streamlit.error("Please select a fruit to get information")
-  else:  
-    back_from_function = get_fruity_vice_data(fruit_choice)
-    streamlit.dataframe(back_from_function)  
+#  else:  
+#    back_from_function = get_fruity_vice_data(fruit_choice)
+#    streamlit.dataframe(back_from_function)  
     
 
 #add another header for adding fruit

@@ -23,19 +23,21 @@ streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(fruits_to_show)
-
 #streamlit.dataframe(fruits_to_show)
-
 #new header for api response
 streamlit.header("Fruityvice Fruit Advice!")
 fruit_choice = streamlit.text_input('What fruit would you like information about?')
 streamlit.write('The user entered',fruit_choice)
 
-except URLError as e:
-  streamlit.error
-#add a stop here
-streamlit.stop()
-                
+#import requests
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+#take json and normalize it
+fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+#output to screen
+streamlit.dataframe(fruityvice_normalized)   
+
+except URLerror as e:
+  streamlit.error()
                 
 #create fruityvice function
 def get_fruity_vice_data(this_fruit_choice):
@@ -49,7 +51,10 @@ if streamlit.button('Get Fruit Load List'):
     my_data_rows = get_fruit_load_list()
     streamlit.dataframe(my_data_rows)
 
-
+except URLError as e:
+  streamlit.error
+#add a stop here
+streamlit.stop()
     
 
 #try:

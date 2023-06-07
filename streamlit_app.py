@@ -37,6 +37,11 @@ if streamlit.button('Get Fruit Load List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     my_data_rows = get_fruit_load_list()
     streamlit.dataframe(my_data_rows)
+except URLError as e:
+  streamlit.error
+#add a stop here
+streamlit.stop()
+
     
 #new header for api response
 streamlit.header("Fruityvice Fruit Advice!")
@@ -48,11 +53,6 @@ try:
     back_from_function = get_fruity_vice_data(fruit_choice)
     streamlit.dataframe(back_from_function)  
     
-except URLError as e:
-  streamlit.error
-#add a stop here
-streamlit.stop()
-
 
 #add another header for adding fruit
 #def insert_row_snowflake(new_fruit):

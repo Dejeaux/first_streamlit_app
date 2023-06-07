@@ -96,6 +96,10 @@ try :
         back_from_function = get_fruity_vice_data( fruit_choice )
         streamlit.dataframe( back_from_function )
 
+except URLError as e:
+  streamlit.error
+#add a stop here
+streamlit.stop()
 
 def insert_row_snowflake(new_fruit):
     with my_cnx.cursor() as my_cur:
@@ -116,10 +120,7 @@ if streamlit.button('Add a Fruit to the List'):
     
 
     
-except URLError as e:
-  streamlit.error
-#add a stop here
-streamlit.stop()
+
     
 
 
